@@ -49,7 +49,7 @@ export class AppComponent implements OnInit {
       
       //window.location.href = '/';
       if(this.planform.pathname.substring(1) !== 'login'){
-        //window.location.href = '/login';
+        window.location.href = '/login';
       }
     }
 
