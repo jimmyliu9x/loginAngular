@@ -1,0 +1,39 @@
+<nz-card class="login-photo" style="background-image: url('https://www.fulfillsoft.com/images/Intro2.jpg');">
+  <div style="text-align: center;">
+    <img src="https://www.fulfillsoft.com/images/official-logo-white.png" style="width: 400px;">
+    <p style="color: white;">Customized Fulfillment ERP</p>
+  </div>
+</nz-card>
+
+<nz-card class="login-form-card" style="width:350px; box-shadow: 0 20px 27px 0 rgba(0,0,0,.05);border-radius: 1rem;margin-right: auto !important;
+margin-left: auto !important;">
+<nz-spin [nzSpinning]="isSpinning">
+<h2 style="text-align: center;">User Login</h2>
+<br>
+<h3> Enter your account and password to sign in </h3>
+<nz-alert *ngIf="msg !== ''" nzType="error" nzMessage="{{msg}}"></nz-alert>
+
+<br>
+
+ <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Please input your username!">
+        <nz-input-group nzSize="large" nzPrefixIcon="user">
+          <input type="text" nz-input formControlName="userName" placeholder="Username" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Please input your Password!">
+        <nz-input-group nzSize="large" nzPrefixIcon="lock">
+          <input  type="password" nz-input formControlName="password" placeholder="Password" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <br>
+    <button nz-button nzSize="large" nzBlock class="login-form-button login-form-margin" [nzType]="'primary'">LOGIN</button>
+  </form> 
+
+  <br>
+</nz-spin>
+</nz-card>

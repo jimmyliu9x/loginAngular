@@ -1,0 +1,85 @@
+
+  <nz-spin [nzSize]="'large'" [nzSpinning]="isSpinning">
+    <nz-row >
+      <nz-col [nzSpan]="12">
+        <h2>Dashboard</h2>
+      </nz-col>
+      <nz-col [nzSpan]="12" style="text-align:right;">
+        <button nz-button nz-dropdown [nzDropdownMenu]="menu4">
+          <i nz-icon nzType="calendar" nzTheme="outline"></i>
+          Today
+          <i nz-icon nzType="down"></i>
+        </button>
+         <nz-dropdown-menu #menu4="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-menu-item>This week</li>
+            <li nz-menu-item>This month</li>
+          </ul>
+        </nz-dropdown-menu>
+        <button (click)="refreshCharts();" nz-button nzType="primary" style="margin-left: 5px;"><i nz-icon nzType="reload"></i></button>
+      </nz-col>
+    </nz-row>
+    <br>
+
+    <nz-row [nzGutter]="16">
+      <nz-col [nzSpan]="8">
+        <nz-card>
+          <nz-statistic [nzValue]="(a | number)!" [nzTitle]="'Sales Revenue'"></nz-statistic>
+          <nz-statistic
+            [nzValue]="(11.28 | number: '1.0-2')!"
+            [nzTitle]="''"
+            [nzPrefix]="prefixTplOne"
+            [nzSuffix]="'%'"
+            [nzValueStyle]="{ color: '#3F8600' }"
+          ></nz-statistic>
+          <ng-template #prefixTplOne><i nz-icon nzType="arrow-up"></i></ng-template>
+        </nz-card>
+      </nz-col>
+
+      <nz-col [nzSpan]="8">
+        <nz-card>
+          <nz-statistic [nzValue]="(b | number)!" [nzTitle]="'Active Users'"></nz-statistic>
+          <nz-statistic
+            [nzValue]="(11.28 | number: '1.0-2')!"
+            [nzTitle]="''"
+            [nzPrefix]="prefixTplOne"
+            [nzSuffix]="'%'"
+            [nzValueStyle]="{ color: '#3F8600' }"
+          ></nz-statistic>
+          <ng-template #prefixTplOne><i nz-icon nzType="arrow-up"></i></ng-template>
+        </nz-card>
+      </nz-col>
+
+      <nz-col [nzSpan]="8">
+        <nz-card>
+          <nz-statistic [nzValue]="(c | number: '1.0-2')!" [nzTitle]="'Account Balance'" [nzPrefix]="'$'"></nz-statistic>
+          <nz-statistic
+            [nzValue]="(9.3 | number: '1.0-2')!"
+            [nzTitle]="''"
+            [nzPrefix]="prefixTplTwo"
+            [nzSuffix]="'%'"
+            [nzValueStyle]="{ color: '#CF1322' }"
+          ></nz-statistic>
+          <ng-template #prefixTplTwo><i nz-icon nzType="arrow-down"></i></ng-template>
+        </nz-card>
+      </nz-col>
+    </nz-row>
+
+    <br>
+    <nz-row [nzGutter]="16">
+      <nz-col [nzSpan]="12">
+        <nz-card nzTitle="Card title">
+          <div echarts [options]="chartLineOption" (chartInit)="onChartLineInit($event)" class="demo-chart"></div>
+        </nz-card>
+      </nz-col>
+      <nz-col [nzSpan]="12">
+        <nz-card>
+          <div echarts [options]="pieOption" (chartInit)="onChartPieInit($event)"  class="demo-chart"></div>
+        </nz-card>
+      </nz-col>
+    </nz-row>
+
+    </nz-spin>
+
+
+  

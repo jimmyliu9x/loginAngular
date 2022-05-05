@@ -1,0 +1,17 @@
+nz-input-group{
+   
+    border-radius: .5rem;
+}
+.ant-btn{
+   
+    border-radius: .5rem;
+}
+.login-photo{
+    min-height: 400px;
+    background-size: cover;
+    background-position: 50%;
+    border-radius: .5rem;
+}
+.login-form-card{
+    margin-top: -10rem !important;
+}
