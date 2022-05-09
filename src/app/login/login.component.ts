@@ -85,11 +85,11 @@ export class LoginComponent implements OnInit {
         window.location.href = '/';
       },
       err => {
-        this.errorMessage = err.error.detail;
+        this.errorMessage = err.statusText;
         this.isLoginFailed = true;
-        console.log(this.errorMessage);
         this.msg = this.errorMessage;
         this.isSpinning = false;
+        console.log(err);
       }
     );
 

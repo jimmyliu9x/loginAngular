@@ -53,11 +53,20 @@ export class OverviewComponent implements OnInit {
         {
             type : 'category',
             data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            axisTick: {
+              show: false
+            }
         }
     ],
     yAxis: [
         {
-            type : 'value'
+            type : 'value',
+            axisLine: {
+              show: false
+            },
+            splitLine: {
+              show: false
+            }
         }
     ],
     series: [
@@ -71,9 +80,7 @@ export class OverviewComponent implements OnInit {
 
   /* pie chart option */
   pieOption: EChartsOption = {
-    title: {
-      text: 'Sample Pie Chart'
-    },
+
     tooltip: {
       trigger: 'item'
     },

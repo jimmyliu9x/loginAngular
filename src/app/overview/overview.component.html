@@ -1,5 +1,7 @@
 
   <nz-spin [nzSize]="'large'" [nzSpinning]="isSpinning">
+
+
     <nz-row >
       <nz-col [nzSpan]="12">
         <h2>Dashboard</h2>
@@ -16,13 +18,13 @@
             <li nz-menu-item>This month</li>
           </ul>
         </nz-dropdown-menu>
-        <button (click)="refreshCharts();" nz-button nzType="primary" style="margin-left: 5px;"><i nz-icon nzType="reload"></i></button>
+        <button (click)="refreshCharts();" nz-button nzType="primary" ><i nz-icon nzType="reload"></i></button>
       </nz-col>
     </nz-row>
     <br>
 
     <nz-row [nzGutter]="16">
-      <nz-col [nzSpan]="8">
+      <nz-col [nzSpan]="8" nzLg="8" nzXs="24">
         <nz-card>
           <nz-statistic [nzValue]="(a | number)!" [nzTitle]="'Sales Revenue'"></nz-statistic>
           <nz-statistic
@@ -36,7 +38,7 @@
         </nz-card>
       </nz-col>
 
-      <nz-col [nzSpan]="8">
+      <nz-col [nzSpan]="8" nzLg="8" nzXs="24">
         <nz-card>
           <nz-statistic [nzValue]="(b | number)!" [nzTitle]="'Active Users'"></nz-statistic>
           <nz-statistic
@@ -50,7 +52,7 @@
         </nz-card>
       </nz-col>
 
-      <nz-col [nzSpan]="8">
+      <nz-col [nzSpan]="8" nzLg="8" nzXs="24">
         <nz-card>
           <nz-statistic [nzValue]="(c | number: '1.0-2')!" [nzTitle]="'Account Balance'" [nzPrefix]="'$'"></nz-statistic>
           <nz-statistic
@@ -67,13 +69,13 @@
 
     <br>
     <nz-row [nzGutter]="16">
-      <nz-col [nzSpan]="12">
-        <nz-card nzTitle="Card title">
-          <div echarts [options]="chartLineOption" (chartInit)="onChartLineInit($event)" class="demo-chart"></div>
+      <nz-col [nzSpan]="12" nzLg="12" nzXs="24" style="padding: 0px;margin: 0px;">
+        <nz-card nzTitle="Bar Chart" style="padding: 0px;margin: 0px;">
+          <div echarts [options]="chartLineOption" (chartInit)="onChartLineInit($event)" class="demo-chart" style="padding: 0px; margin: 0px;"></div>
         </nz-card>
       </nz-col>
-      <nz-col [nzSpan]="12">
-        <nz-card>
+      <nz-col [nzSpan]="12" nzLg="12" nzXs="24">
+        <nz-card nzTitle="Pie Chart">
           <div echarts [options]="pieOption" (chartInit)="onChartPieInit($event)"  class="demo-chart"></div>
         </nz-card>
       </nz-col>

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-const AUTH_API = 'https://flsoftdemo-api.azurewebsites.net/users/authenticate';
+const AUTH_API = 'https://flsoftdemo-apiV3.azurewebsites.net/user/login';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  //headers: new HttpHeaders({ 'Access-Control-Allow-Orgin':'*' })
 };
 @Injectable({
   providedIn: 'root'

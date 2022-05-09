@@ -44,10 +44,8 @@ export class AppComponent implements OnInit {
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
       this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR'); */
       this.username = user.username;
-      //window.location.href = '/';
     }else{
       
-      //window.location.href = '/';
       if(this.planform.pathname.substring(1) !== 'login'){
         window.location.href = '/login';
       }
