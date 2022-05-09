@@ -3,7 +3,7 @@ import { FormBuilder,FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RdsService } from '../rds.service';
 import { HttpClient } from '@angular/common/http';
-import { NzMessageService } from 'ng-zorro-antd/message';
+
 
 
 import { first } from 'rxjs/operators';
@@ -84,12 +84,12 @@ export class LoginComponent implements OnInit {
         this.isSpinning = false;
         window.location.href = '/';
       },
-      err => {
-        this.errorMessage = err.statusText;
+      error => {
+        this.errorMessage = error.statusText;
         this.isLoginFailed = true;
         this.msg = this.errorMessage;
         this.isSpinning = false;
-        console.log(err);
+        console.log(error);
       }
     );
 

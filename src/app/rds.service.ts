@@ -4,26 +4,12 @@ import { Observable, of,throwError } from 'rxjs';
 import { catchError,retry } from 'rxjs/operators';
 import { HttpHeaders } from '@angular/common/http';
 
-interface RandomUser {
-  gender: string;
-  email: string;
-  name: {
-    title: string;
-    first: string;
-    last: string;
-  };
-}
-interface Hero {
-  id: number;
-  name: string;
+interface amazonSales {
+  reportDate: string;
+  amount: string;
+  qty:string;
 }
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type':  'application/json',
-   // Authorization: 'my-auth-token'
-  })
-};
 
 @Injectable({
   providedIn: 'root'
@@ -35,8 +21,8 @@ export class RdsService {
 
   randomUserUrl = 'https://api.randomuser.me/';
 
-  userLoginUrl = 'https://api.randomuser.me/';
-  
+  url = "https://flsoftdemo-apiv3.azurewebsites.net/dashboard";
+
   constructor( 
     private http: HttpClient
   ) { }
@@ -65,7 +51,7 @@ export class RdsService {
     sortField: string | null,
     sortOrder: string | null,
     filters: Array<{ key: string; value: string[] }>
-  ): Observable<{ results: RandomUser[] }> {
+  ): Observable<{ results: amazonSales[] }> {
 
     let params = new HttpParams()
       .append('page', `${pageIndex}`)
@@ -80,20 +66,11 @@ export class RdsService {
     });
 
     return this.http
-      .get<{ results: RandomUser[] }>(`${this.randomUserUrl}`, { params })
+      .get<{ results: amazonSales[] }>(`${this.url}`, { params })
       .pipe(catchError(() => of({ results: [] })));
 
   }
 
-
-  /** POST: user login service by API */
-  userLogin(hero: Hero): Observable<Hero> {
-    return this.http
-    .post< Hero>(this.userLoginUrl, hero, httpOptions)
-    .pipe(
-        //catchError( this.handleError('userLogin', hero) )
-      );
-  }
 
 
 }

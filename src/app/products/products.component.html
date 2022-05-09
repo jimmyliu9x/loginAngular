@@ -1,4 +1,4 @@
-<h3>Remote Database List</h3>
+<h3>Amazon Sales</h3>
 
 <nz-table
       nzShowSizeChanger
@@ -12,16 +12,18 @@
     >
       <thead>
         <tr>
-          <th nzColumnKey="name" [nzSortFn]="true">Name</th>
-          <th nzColumnKey="gender" [nzFilters]="filterGender" [nzFilterFn]="true">Gender</th>
-          <th nzColumnKey="email" [nzSortFn]="true">Email</th>
+          <th nzColumnKey="reportDate" [nzSortFn]="true">reportDate</th>
+          <th nzColumnKey="amount" [nzFilters]="filterGender" [nzFilterFn]="true">amount</th>
+          <th nzColumnKey="qty" [nzSortFn]="true">qty</th>
+          <th nzColumnKey="numOfOrders" [nzSortFn]="true">numOfOrders</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let data of listOfRandomUser">
-          <td>{{ data.name.first }} {{ data.name.last }}</td>
-          <td>{{ data.gender }}</td>
-          <td>{{ data.email }}</td>
+          <td>{{ data.reportDate }}</td>
+          <td>{{ data.amount }}</td>
+          <td>{{ data.qty }}</td>
+          <td>{{ data.numOfOrders }}</td>
         </tr>
       </tbody>
     </nz-table>

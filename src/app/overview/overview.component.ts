@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { EChartsOption } from 'echarts';
 import { NzMessageService } from 'ng-zorro-antd/message';
-
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { TokenStorageService } from '../_services/token-storage.service';
 
 @Component({
   selector: 'app-overview',
@@ -14,7 +15,18 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 export class OverviewComponent implements OnInit {
   
   isSpinning = true;
+  
 
+  constructor(
+    private http: HttpClient,
+    private tokenStorageService: TokenStorageService
+    ) { }
+
+  amazon:any = '';
+
+  token = this.tokenStorageService.getToken();
+
+  
   /* random int numbers */
  
   getRandomNumInt(min: number, max: number){
@@ -179,7 +191,7 @@ This function for reload button.
 
   ngOnInit(): void {
     this.refreshCharts();
-    
+    //this.getAmazonData();
   }
 
   ngAfterViewInit(){

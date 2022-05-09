@@ -5,16 +5,6 @@ import { RdsService } from '../rds.service';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
 
-interface RandomUsers {
-  gender: string;
-  email: string;
-  name: {
-    title: string;
-    first: string;
-    last: string;
-  };
-}
-
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -32,7 +22,7 @@ export class ProductsComponent implements OnInit {
   
   
   total = 1;
-  listOfRandomUser: RandomUsers[] = [];
+  listOfRandomUser: any = [];
   loading = true;
   pageSize = 10;
   pageIndex = 1;
@@ -52,7 +42,8 @@ export class ProductsComponent implements OnInit {
     this.rdsService.getUsers(pageIndex, pageSize, sortField, sortOrder, filter).subscribe(data => {
       this.loading = false;
       this.total = 50; // mock the total data here
-      this.listOfRandomUser = data.results;
+      this.listOfRandomUser = data['amazonSales'];
+      console.log(data['amazonSales']);
     });
   }
 
