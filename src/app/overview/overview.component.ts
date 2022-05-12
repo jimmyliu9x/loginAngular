@@ -15,7 +15,6 @@ import { TokenStorageService } from '../_services/token-storage.service';
 export class OverviewComponent implements OnInit {
   
   isSpinning = true;
-  
 
   constructor(
     private http: HttpClient,
@@ -140,6 +139,16 @@ This function for reload button.
   a:number = 0;
   b:number = 0;
   c:number = 0;
+
+  abcIn($event:any){
+    //console.log($event);
+    $event.target.classList.remove("animate__fadeInDown");
+    $event.target.classList.add("animate__bounce");
+  }
+  abcOut($event:any){
+   // console.log($event);
+    $event.target.classList.remove("animate__bounce");
+  }
 
   refreshCharts(){
     

@@ -4,7 +4,7 @@
 
     <nz-row >
       <nz-col [nzSpan]="12">
-        <h2>Dashboard</h2>
+        <h2 class="animate__animated animate__backInLeft">Dashboard</h2>
       </nz-col>
       <nz-col [nzSpan]="12" style="text-align:right;">
         <button nz-button nz-dropdown [nzDropdownMenu]="menu4">
@@ -25,9 +25,9 @@
 
     <nz-row [nzGutter]="16">
       <nz-col [nzSpan]="8" nzLg="8" nzXs="24">
-        <nz-card>
-          <nz-statistic [nzValue]="(a | number)!" [nzTitle]="'Sales Revenue'"></nz-statistic>
-          <nz-statistic
+        <nz-card (mouseenter)="abcIn($event);" (mouseleave)="abcOut($event);"  class="animate__animated animate__fadeInDown">
+          <nz-statistic  [nzValue]="(a | number)!" [nzTitle]="'Sales Revenue'"></nz-statistic>
+          <nz-statistic 
             [nzValue]="(11.28 | number: '1.0-2')!"
             [nzTitle]="''"
             [nzPrefix]="prefixTplOne"
@@ -39,7 +39,7 @@
       </nz-col>
 
       <nz-col [nzSpan]="8" nzLg="8" nzXs="24">
-        <nz-card>
+        <nz-card (mouseenter)="abcIn($event);" (mouseleave)="abcOut($event);" class="animate__animated animate__fadeInDown">
           <nz-statistic [nzValue]="(b | number)!" [nzTitle]="'Active Users'"></nz-statistic>
           <nz-statistic
             [nzValue]="(11.28 | number: '1.0-2')!"
@@ -53,7 +53,7 @@
       </nz-col>
 
       <nz-col [nzSpan]="8" nzLg="8" nzXs="24">
-        <nz-card>
+        <nz-card (mouseenter)="abcIn($event);" (mouseleave)="abcOut($event);" class="animate__animated animate__fadeInDown">
           <nz-statistic [nzValue]="(c | number: '1.0-2')!" [nzTitle]="'Account Balance'" [nzPrefix]="'$'"></nz-statistic>
           <nz-statistic
             [nzValue]="(9.3 | number: '1.0-2')!"
@@ -70,7 +70,7 @@
     <br>
     <nz-row [nzGutter]="16">
       <nz-col [nzSpan]="12" nzLg="12" nzXs="24" style="padding: 0px;margin: 0px;">
-        <nz-card nzTitle="Bar Chart" style="padding: 0px;margin: 0px;">
+        <nz-card class="" nzTitle="Bar Chart" style="padding: 0px;margin: 0px;">
           <div echarts [options]="chartLineOption" (chartInit)="onChartLineInit($event)" class="demo-chart" style="padding: 0px; margin: 0px;"></div>
         </nz-card>
       </nz-col>
