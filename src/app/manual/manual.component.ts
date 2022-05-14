@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TokenStorageService } from '../_services/token-storage.service';
 
 @Component({
   selector: 'app-manual',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManualComponent implements OnInit {
 
-  constructor() { }
+  authToken = '';
+
+  constructor(
+    private tokenStorageService: TokenStorageService
+  ) { }
+
+  
 
   ngOnInit(): void {
+    this.authToken = this.tokenStorageService.getToken();
   }
 
 }

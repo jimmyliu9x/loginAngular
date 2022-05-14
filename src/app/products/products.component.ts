@@ -30,6 +30,7 @@ export class ProductsComponent implements OnInit {
     { text: 'male', value: 'male' },
     { text: 'female', value: 'female' }
   ];
+  recordDetails = '';
 
   loadDataFromServer(
     pageIndex: number,
@@ -38,13 +39,20 @@ export class ProductsComponent implements OnInit {
     sortOrder: string | null,
     filter: Array<{ key: string; value: string[] }>
   ): void {
+    this.rdsService.url = "https://flsoftdemo-apiv2.azurewebsites.net/dashboard";
     this.loading = true;
     this.rdsService.getUsers(pageIndex, pageSize, sortField, sortOrder, filter).subscribe(data => {
       this.loading = false;
       this.total = 50; // mock the total data here
       this.listOfRandomUser = data['amazonSales'];
-      console.log(data['amazonSales']);
+      console.log(data);
     });
+  }
+
+  showDetails(details: any) {
+    this.recordDetails = details;
+    this.showModal();
+    console.log(this.recordDetails);
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
@@ -58,6 +66,22 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
 
+  }
+
+  isVisible = false;
+
+  showModal(): void {
+    this.isVisible = true;
+  }
+
+  handleOk(): void {
+    console.log('Button ok clicked!');
+    this.isVisible = false;
+  }
+
+  handleCancel(): void {
+    console.log('Button cancel clicked!');
+    this.isVisible = false;
   }
 
 }

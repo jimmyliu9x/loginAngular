@@ -41,12 +41,14 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 
 import { LoginComponent } from './login/login.component';
 import { ProductsComponent } from './products/products.component';
 import { ManualComponent } from './manual/manual.component';
 
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
+import { OrdersComponent } from './orders/orders.component';
 
 registerLocaleData(en);
 
@@ -63,7 +65,8 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     OverviewComponent,
     LoginComponent,
     ProductsComponent,
-    ManualComponent
+    ManualComponent,
+    OrdersComponent
   ],
   imports: [
     BrowserModule,
@@ -92,7 +95,8 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     NzTableModule,
     NzSpinModule,
     NzAlertModule,
-    NzModalModule
+    NzModalModule,
+    NzDescriptionsModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

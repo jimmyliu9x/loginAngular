@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
   isCollapsed = false;
   routerPath:string="";
   currentPath = '';
+  
 
   constructor(
     private route:Router,
@@ -35,8 +36,8 @@ export class AppComponent implements OnInit {
   
     
   ngOnInit(): void{
-    console.log('working location:',this.planform.pathname.substring(1));
-   
+    //console.log('working location:',this.planform.pathname.substring(1));
+
     this.isLoggedIn = !!this.tokenStorageService.getToken();
     if (this.isLoggedIn) {
       const user = this.tokenStorageService.getUser();
@@ -44,6 +45,7 @@ export class AppComponent implements OnInit {
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
       this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR'); */
       this.username = user.username;
+     
     }else{
       
       if(this.planform.pathname.substring(1) !== 'login'){
@@ -56,7 +58,7 @@ export class AppComponent implements OnInit {
        if(data instanceof NavigationEnd){
          this.routerPath=data.url.substring(1);
          
-         console.log("working path:",this.routerPath);
+         //console.log("working path:",this.routerPath);
          this.currentPath = this.routerPath;
        }
     }) 

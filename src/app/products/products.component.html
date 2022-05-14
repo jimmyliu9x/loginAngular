@@ -16,14 +16,26 @@
           <th nzColumnKey="amount" [nzFilters]="filterGender" [nzFilterFn]="true">amount</th>
           <th nzColumnKey="qty" [nzSortFn]="true">qty</th>
           <th nzColumnKey="numOfOrders" [nzSortFn]="true">numOfOrders</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of listOfRandomUser">
+        <tr *ngFor="let data of listOfRandomUser[0]">
           <td>{{ data.reportDate }}</td>
           <td>{{ data.amount }}</td>
           <td>{{ data.qty }}</td>
-          <td>{{ data.numOfOrders }}</td>
+          <td>{{ data.NumOfOrders }}</td>
+          <td><a (click)="showDetails(data)">Details</a></td>
         </tr>
       </tbody>
     </nz-table>
+
+    <nz-modal  [(nzVisible)]="isVisible" nzTitle="Report Details" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+      <ng-container *nzModalContent>
+
+        <nz-descriptions *ngFor=" let item of recordDetails | keyvalue">
+          <nz-descriptions-item nzTitle="{{item.key}}">{{item.value}}</nz-descriptions-item>
+        </nz-descriptions>
+
+      </ng-container>
+    </nz-modal>

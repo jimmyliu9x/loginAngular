@@ -1,0 +1,27 @@
+<h3>Unshipped Orders</h3>
+
+<nz-table
+      nzShowSizeChanger
+      [nzData]="unshippedOrders"
+      [nzFrontPagination]="true"
+      [nzLoading]="loading"
+    >
+      <thead>
+        <tr>
+          <th nzColumnKey="OrderDate" [nzSortFn]="true">OrderDate</th>
+          <th nzColumnKey="OrderStatus" [nzFilterFn]="true">OrderStatus</th>
+          <th nzColumnKey="BillingName" [nzSortFn]="true">BillingName</th>
+          <th nzColumnKey="StoreName" [nzSortFn]="true">StoreName</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of unshippedOrders[0]">
+          <td>{{ data.OrderDate }}</td>
+          <td>{{ data.OrderStatus }}</td>
+          <td>{{ data.BillingName }}</td>
+          <td>{{ data.StoreName }}</td>
+       
+        </tr>
+      </tbody>
+    </nz-table>
