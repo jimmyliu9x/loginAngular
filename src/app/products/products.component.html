@@ -1,5 +1,8 @@
 <h3>Amazon Sales</h3>
 
+<div echarts [options]="chartOption" (chartInit)="onChartPieInit($event)" class="demo-chart"></div>
+
+
 <nz-table
       nzShowSizeChanger
       [nzData]="listOfRandomUser"
@@ -9,6 +12,7 @@
       [nzPageSize]="pageSize"
       [nzPageIndex]="pageIndex"
       (nzQueryParams)="onQueryParamsChange($event)"
+      [nzShowPagination] = "false"
     >
       <thead>
         <tr>

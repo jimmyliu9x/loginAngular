@@ -17,15 +17,12 @@
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/overview">Overview</a>
           </li>
-        </ul>
-      </li>
-      <li nz-submenu nzOpen nzTitle="Sales" nzIcon="switcher" style="background-color:#2d6bcf;">
-        <ul>
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/products">Amazon Sales</a>
           </li>
         </ul>
       </li>
+
       <li nz-submenu nzOpen nzTitle="Orders" nzIcon="switcher" style="background-color:#2d6bcf;">
         <ul>
           <li nz-menu-item nzMatchRouter>
@@ -71,7 +68,7 @@
             </span> -->
              
             <span class="header-user" nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
-              <nz-avatar  nzIcon="user"></nz-avatar>  Welcome, {{username}}
+              <nz-avatar  nzIcon="user"></nz-avatar> {{username}}
               <i nz-icon nzType="down"></i>
             </span>
             <nz-dropdown-menu #menu="nzDropdownMenu">

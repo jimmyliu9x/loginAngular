@@ -4,7 +4,7 @@
 
     <nz-row >
       <nz-col [nzSpan]="12">
-        <h2 class="animate__animated animate__backInLeft">Dashboard</h2>
+        <h2 class="animate__animated">Overview</h2>
       </nz-col>
       <nz-col [nzSpan]="12" style="text-align:right;">
         <button nz-button nz-dropdown [nzDropdownMenu]="menu4">
@@ -21,66 +21,47 @@
         <button (click)="refreshCharts();" nz-button nzType="primary" ><i nz-icon nzType="reload"></i></button>
       </nz-col>
     </nz-row>
-    <br>
 
-    <nz-row [nzGutter]="16">
-      <nz-col [nzSpan]="8" nzLg="8" nzXs="24">
-        <nz-card (mouseenter)="abcIn($event);" (mouseleave)="abcOut($event);"  class="animate__animated animate__fadeInDown">
-          <nz-statistic  [nzValue]="(a | number)!" [nzTitle]="'Sales Revenue'"></nz-statistic>
-          <nz-statistic 
-            [nzValue]="(11.28 | number: '1.0-2')!"
-            [nzTitle]="''"
-            [nzPrefix]="prefixTplOne"
-            [nzSuffix]="'%'"
-            [nzValueStyle]="{ color: '#3F8600' }"
-          ></nz-statistic>
-          <ng-template #prefixTplOne><i nz-icon nzType="arrow-up"></i></ng-template>
-        </nz-card>
-      </nz-col>
-
-      <nz-col [nzSpan]="8" nzLg="8" nzXs="24">
-        <nz-card (mouseenter)="abcIn($event);" (mouseleave)="abcOut($event);" class="animate__animated animate__fadeInDown">
-          <nz-statistic [nzValue]="(b | number)!" [nzTitle]="'Active Users'"></nz-statistic>
-          <nz-statistic
-            [nzValue]="(11.28 | number: '1.0-2')!"
-            [nzTitle]="''"
-            [nzPrefix]="prefixTplOne"
-            [nzSuffix]="'%'"
-            [nzValueStyle]="{ color: '#3F8600' }"
-          ></nz-statistic>
-          <ng-template #prefixTplOne><i nz-icon nzType="arrow-up"></i></ng-template>
-        </nz-card>
-      </nz-col>
-
-      <nz-col [nzSpan]="8" nzLg="8" nzXs="24">
-        <nz-card (mouseenter)="abcIn($event);" (mouseleave)="abcOut($event);" class="animate__animated animate__fadeInDown">
-          <nz-statistic [nzValue]="(c | number: '1.0-2')!" [nzTitle]="'Account Balance'" [nzPrefix]="'$'"></nz-statistic>
-          <nz-statistic
-            [nzValue]="(9.3 | number: '1.0-2')!"
-            [nzTitle]="''"
-            [nzPrefix]="prefixTplTwo"
-            [nzSuffix]="'%'"
-            [nzValueStyle]="{ color: '#CF1322' }"
-          ></nz-statistic>
-          <ng-template #prefixTplTwo><i nz-icon nzType="arrow-down"></i></ng-template>
-        </nz-card>
-      </nz-col>
-    </nz-row>
+    
 
     <br>
-    <nz-row [nzGutter]="16">
-      <nz-col [nzSpan]="12" nzLg="12" nzXs="24" style="padding: 0px;margin: 0px;">
-        <nz-card class="" nzTitle="Bar Chart" style="padding: 0px;margin: 0px;">
-          <div echarts [options]="chartLineOption" (chartInit)="onChartLineInit($event)" class="demo-chart" style="padding: 0px; margin: 0px;"></div>
-        </nz-card>
-      </nz-col>
-      <nz-col [nzSpan]="12" nzLg="12" nzXs="24">
-        <nz-card nzTitle="Pie Chart">
-          <div echarts [options]="pieOption" (chartInit)="onChartPieInit($event)"  class="demo-chart"></div>
-        </nz-card>
-      </nz-col>
-    </nz-row>
 
+    
+    
+    <nz-card [nzBodyStyle]="{'padding':'0px'}">
+      <nz-row [nzGutter]="0" style="padding:20px;">
+        <nz-col [nzSpan]="12" nzLg="12" nzXs="24" >
+          <h3><i nz-icon nzType="amazon" nzTheme="outline"></i> Amazon Sales</h3>
+        </nz-col>
+        <nz-col [nzSpan]="12" nzLg="12" nzXs="24" style="text-align: right;">
+          <button routerLink="/products" nz-button nzType="default" nzShape="circle"><i nz-icon nzType="right" nzTheme="outline"></i></button>
+        </nz-col>
+      </nz-row>
+
+
+      <nz-row [nzGutter]="0">
+          <nz-col [nzSpan]="6" nzLg="6" nzXs="24" style="border-right:1px solid #eee ;padding-left: 30px;">
+            <nz-statistic  [nzValue]="(salesData[0] | number)!" [nzTitle]="'Revenue'"> </nz-statistic> <br>
+          </nz-col>
+          <nz-col [nzSpan]="6" nzLg="6" nzXs="24" style="border-right:1px solid #eee ;padding-left: 30px;">
+        
+            <nz-statistic [nzValue]="(salesData[1] | number)!" [nzTitle]="'Cost'"></nz-statistic><br>
+          </nz-col>
+          <nz-col [nzSpan]="6" nzLg="6" nzXs="24" style="border-right:1px solid #eee ;padding-left: 30px;">
+         
+            <nz-statistic [nzValue]="(salesData[2] | number: '1.0-2')!" [nzTitle]="'Profit'"></nz-statistic><br>
+
+          </nz-col>
+          <nz-col [nzSpan]="6" nzLg="6" nzXs="24" style="border-right:1px solid #eee ;padding-left: 30px;">
+  
+            <nz-statistic [nzValue]="(salesData[3] | number: '1.0-2')!" [nzTitle]="'Orders'"></nz-statistic>
+          </nz-col>
+        
+      </nz-row>
+      
+        <div style="margin:0px;padding:0px;" echarts [options]="chartLineOption" (chartInit)="onChartLineInit($event)"></div>
+      
+    </nz-card>
 
   
     </nz-spin>

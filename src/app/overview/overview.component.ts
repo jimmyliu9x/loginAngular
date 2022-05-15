@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EChartsOption } from 'echarts';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { TokenStorageService } from '../_services/token-storage.service';
+import { RdsService } from '../rds.service';
 
 @Component({
   selector: 'app-overview',
@@ -18,79 +18,62 @@ export class OverviewComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private tokenStorageService: TokenStorageService
-    ) { }
+    private rdsService: RdsService
+  ) { }
 
-  amazon:any = '';
+  amazonData = [];
+  salesData:any = [0,0,0,0];
 
-  token = this.tokenStorageService.getToken();
+  chartAmount = [];
+  chartDate = [];
+
 
   
-  /* random int numbers */
- 
-  getRandomNumInt(min: number, max: number){
-    var Range = max - min;
-    var Rand  = Math.random();
-    return (min + Math.round(Rand * Range));
-  }
-  
-  
-
-  /* intial random data for charts */
-  getRandomArr(num:number): number[]{
-    var array:number[] = new Array;
-    var i: number;
-    for (i=0;i<num;i++){
-      array[i] = i;
-    }
-    array.sort(
-      function(){
-        return 0.5 - Math.random();
-      }
-    );
-    return array;
-  }
-
   /* line chart option */
   lineOption:EChartsOption = {
 
+
     tooltip: {
-      trigger: 'axis',
-      axisPointer: {
-        type: 'shadow'
-      }
+      trigger: 'axis'
+    },
+    grid: {
+      left: "0",
+      right:"0",
+      bottom:"0"
     },
     xAxis: [
         {
             type : 'category',
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
             axisTick: {
               show: false
-            }
+            },
+            show: false,
+            boundaryGap: false
         }
     ],
     yAxis: [
         {
             type : 'value',
+            show:false,
             axisLine: {
               show: false
             },
             splitLine: {
               show: false
-            }
+            },
+            boundaryGap: false
         }
     ],
     series: [
       {
-        type: 'line',
-        data:this.getRandomArr(7),
-        areaStyle:{}
+        name: 'line',
+        type: 'line'
         }
       ]
   };
 
   /* pie chart option */
-  pieOption: EChartsOption = {
+  /* pieOption: EChartsOption = {
 
     tooltip: {
       trigger: 'item'
@@ -116,31 +99,18 @@ export class OverviewComponent implements OnInit {
         }
       }
     ]
-  };
+  }; */
 
 
   chartLineOption: any;
   echartsLineInstance: any;
 
-  chartPieOption: any;
-  echartsPieInstance: any;
-
   onChartLineInit(ec:any) {
     this.echartsLineInstance = ec;
   }
-  
-  onChartPieInit(ec:any) {
-    this.echartsPieInstance = ec;
-  }
 
-/* Reload data and refresh charts. 
-This function for reload button.
- */
-  a:number = 0;
-  b:number = 0;
-  c:number = 0;
 
-  abcIn($event:any){
+/*   abcIn($event:any){
     //console.log($event);
     $event.target.classList.remove("animate__fadeInDown");
     $event.target.classList.add("animate__bounce");
@@ -149,63 +119,92 @@ This function for reload button.
    // console.log($event);
     $event.target.classList.remove("animate__bounce");
   }
-
+ */
   refreshCharts(){
     
     this.isSpinning = true;
-    //this.createBasicMessage(); //dislay a waiting msg.
-
-    this.a = this.getRandomNumInt(1000000,9000000);
-    this.b = this.getRandomNumInt(100000,900000);
-    this.c = this.getRandomNumInt(10000,90000);
 
     /** config charts  */
     const itemLine = [];
     itemLine.push({
-      type: 'bar',
-      smooth: 0.3,
-      data: this.getRandomArr(7),
-      areaStyle:{},
-      itemStyle: {
-        barBorderRadius: 20
+      type: 'line',
+      tooltip: {
+        trigger: 'axis',
+        axisPointer:{
+          type:'line'
+        }
+
+      },
+      smooth: 0.6,
+      data: this.chartAmount,
+      //symbol: "none",
+      areaStyle:{
+        //color: 'rgb(3,201,215)',
+        opacity: 0.2
+      },
+      lineStyle:{
+        //color: 'rgb(3,201,215)'
       }
     });
+
+    //xAxis
+    const itemX = [];
+    itemX.push(
+      {
+        type : 'category',
+        boundaryGap: false,
+        data: this.chartDate
+      }
+    );
+
     this.chartLineOption = this.lineOption;
     this.chartLineOption.series = itemLine;
-    if (this.echartsLineInstance) {
-      //this.echartsLineInstance.clear();
-      this.echartsLineInstance.setOption(this.chartLineOption, true);
-    }
+    this.chartLineOption.xAxis = itemX;
 
-    const itemPie = [];
-    itemPie.push({
-      type: 'pie',
-      radius: ['50%', '70%'],
-      label:{show:false},
-      data: this.getRandomArr(7)
-    });
-    this.chartPieOption = this.pieOption;
-    this.chartPieOption.series = itemPie;
-    if (this.echartsPieInstance) {
-      //this.echartsLineInstance.clear();
-      this.echartsPieInstance.setOption(this.chartPieOption, true);
-    }
+
+    /*******************************/
+    this.rdsService.url = 'https://flsoftdemo-apiv2.azurewebsites.net/dashboard';
+    this.rdsService.post('20','1').subscribe(data => {
     
-    setTimeout(() => {
-      this.isSpinning = false;
-    }, 500);
+      this.amazonData = data['amazonSales'][0];
+      this.salesData = [];
+      this.salesData.push(this.amazonData[0]['amount']);
+      this.salesData.push(this.amazonData[0]['ItemCostTotal']);
+      this.salesData.push(this.amazonData[0]['profitTotal']);
+      this.salesData.push(this.amazonData[0]['NumOfOrders']);
+
+      this.amazonData.forEach((value,index,array) => {
+        this.chartAmount.push(value['amount']);
+        this.chartDate.push(value['reportDate']);
+        }
+    
+      );
+
+      if (this.echartsLineInstance) {
+        //this.echartsLineInstance.clear();
+        this.echartsLineInstance.setOption(this.chartLineOption, true);
+      }
+    
+        
+      setTimeout(() => {
+        this.isSpinning = false;
+      }, 500);
+      this.chartAmount = [];
+      this.chartDate = [];
+
+    });
+    /*******************************/
+
     
   }
 
+ 
 
   ngOnInit(): void {
     this.refreshCharts();
     //this.getAmazonData();
   }
 
-  ngAfterViewInit(){
-    
-    
-  }
+
 
 }

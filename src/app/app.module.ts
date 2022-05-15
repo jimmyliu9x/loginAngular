@@ -42,6 +42,8 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { NzTagModule } from 'ng-zorro-antd/tag';
 
 import { LoginComponent } from './login/login.component';
 import { ProductsComponent } from './products/products.component';
@@ -96,7 +98,9 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     NzSpinModule,
     NzAlertModule,
     NzModalModule,
-    NzDescriptionsModule
+    NzDescriptionsModule,
+    NzBadgeModule,
+    NzTagModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
