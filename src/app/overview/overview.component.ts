@@ -25,6 +25,8 @@ export class OverviewComponent implements OnInit {
   salesData:any = [0,0,0,0];
 
   chartAmount = [];
+  chartCost = [];
+  chartProfit = [];
   chartDate = [];
 
 
@@ -41,6 +43,9 @@ export class OverviewComponent implements OnInit {
       right:"0",
       bottom:"0"
     },
+    /* legend: {
+      data: ['revenue']
+    }, */
     xAxis: [
         {
             type : 'category',
@@ -128,24 +133,46 @@ export class OverviewComponent implements OnInit {
     const itemLine = [];
     itemLine.push({
       type: 'line',
+      name:'revenue',
       tooltip: {
-        trigger: 'axis',
-        axisPointer:{
-          type:'line'
-        }
+        trigger: 'axis'
 
       },
-      smooth: 0.6,
+        axisPointer:{
+          type:'line'
+        },
+      smooth: 0.5,
       data: this.chartAmount,
-      //symbol: "none",
+      symbol: "circle", //'circle', 'rect', 'roundRect', 'triangle', 'diamond', 'pin', 'arrow', 'none'
       areaStyle:{
         //color: 'rgb(3,201,215)',
-        opacity: 0.2
+        opacity: 0.3
       },
       lineStyle:{
         //color: 'rgb(3,201,215)'
       }
-    });
+    } ,
+    {
+      type: 'line',
+      name:'cost',
+      tooltip: {
+        trigger: 'axis'
+      },
+      smooth: 0.5,
+      data: this.chartCost,
+      symbol: "none",
+    },
+    {
+      type: 'line',
+      name:'profit',
+      tooltip: {
+        trigger: 'axis'
+      },
+      smooth: 0.5,
+      data: this.chartProfit,
+      symbol: "none",
+    }
+    );
 
     //xAxis
     const itemX = [];
@@ -174,10 +201,11 @@ export class OverviewComponent implements OnInit {
       this.salesData.push(this.amazonData[0]['NumOfOrders']);
 
       this.amazonData.forEach((value,index,array) => {
-        this.chartAmount.push(value['amount']);
-        this.chartDate.push(value['reportDate']);
+          this.chartAmount.push(value['amount']);
+          this.chartCost.push(value['ItemCostTotal']);
+          this.chartProfit.push(value['profitTotal']);
+          this.chartDate.push(value['reportDate']);
         }
-    
       );
 
       if (this.echartsLineInstance) {
@@ -191,7 +219,7 @@ export class OverviewComponent implements OnInit {
       }, 500);
       this.chartAmount = [];
       this.chartDate = [];
-
+      this.chartCost = [];
     });
     /*******************************/
 
