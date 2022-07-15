@@ -7,8 +7,7 @@
             [nzTrigger]="null">
     <div class="sidebar-logo">
       <a href="/" target="_blank">
-        <img src="../assets/angular.svg" alt="logo">
-        <h1>FulfillSoft.com</h1>
+        <img src="../assets/logo.png" style="height:32px;width: 160px;" alt="logo">
       </a>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed" style="background-color:#2d6bcf;"> 
@@ -26,8 +25,24 @@
       <li nz-submenu nzOpen nzTitle="Orders" nzIcon="switcher" style="background-color:#2d6bcf;">
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="/orders">Unshipped Orders</a>
+            Sales Orders
           </li>
+          <li nz-menu-item nzMatchRouter>
+            On-Hold Orders
+          </li>
+         
+          <li nz-submenu nzTitle="Unshipped Orders" nzOpen="true">
+            <ul>
+              <li nz-menu-item nzMatchRouter>
+                <a routerLink="/orders">All</a>
+              </li>
+              <li nz-menu-item>Download Orders</li>
+              <li nz-menu-item>Check Rates</li>
+              <li nz-menu-item>Buy Labels</li>
+              <li nz-menu-item>Make Label Report</li>
+            </ul>
+          </li>
+
         </ul>
       </li>
       <li nz-submenu nzOpen nzTitle="Help & service" style="background-color:#2d6bcf;" nzIcon="customer-service">
@@ -52,12 +67,12 @@
               </span>
           </div>
           <div nz-col nzSpan="8">
-            <nz-input-group [nzSuffix]="suffixIconSearch">
+            <!-- <nz-input-group [nzSuffix]="suffixIconSearch">
               <input type="text" nz-input placeholder="input search text" />
             </nz-input-group>
             <ng-template #suffixIconSearch>
               <i nz-icon nzType="search"></i>
-            </ng-template>
+            </ng-template> -->
           </div>
           <div nz-col nzSpan="14" style="text-align: right;" >
 

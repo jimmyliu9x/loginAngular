@@ -23,6 +23,12 @@
 .ant-item-inline .ant-menu-item{
   margin-top: 0px;
   margin-bottom: 0px;
+  
+}
+.ant-menu-item{
+  line-height: 30px;
+  height: 30px;
+  padding-left: 32px;
 }
 
 .header-trigger {

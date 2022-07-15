@@ -1,5 +1,60 @@
-<h3>Unshipped Orders</h3>
+<!-- 
+<nz-steps nzType="navigation" nzSize="small" [nzCurrent]="0" >
+  <nz-step nzTitle="Check Rates" nzStatus="finish"></nz-step>
+  <nz-step nzTitle="Buy Labels" nzStatus="finish"></nz-step>
+  <nz-step nzTitle="Make Labels" nzStatus="process"></nz-step>
+  <nz-step nzTitle="Done" nzStatus="wait" nzDisabled></nz-step>
+</nz-steps> -->
 
+<div nz-row >
+  <div nz-col nzSpan="4">
+    <h3>Unshipped Orders</h3>
+  </div>
+  <div nz-col nzSpan="20" style="text-align: right;">
+  
+    <nz-input-group [nzSuffix]="inputClearTpl" style="width: 150px;">
+      <input type="text" nz-input [(ngModel)]="orderId" placeholder="Search by order id" />
+    </nz-input-group>
+    <ng-template #inputClearTpl>
+      <i
+        nz-icon
+        class="ant-input-clear-icon"
+        nzTheme="fill"
+        nzType="close-circle"
+        *ngIf="orderId"
+        (click)="orderId = null"
+      ></i>
+    </ng-template>
+
+
+    <nz-select [(ngModel)]="mailService" nzPlaceHolder="Select a Mail Service">
+      <nz-option *ngFor="let option of ddlMailServices" [nzLabel]="option['mailService']" [nzValue]="option['mailService']"></nz-option>
+    </nz-select>
+
+    <nz-select [(ngModel)]="storeId"  nzPlaceHolder="Select a Store">
+      <nz-option *ngFor="let optionStore of ddlStore" [nzLabel]="optionStore['storeName']" [nzValue]="optionStore['id']"></nz-option>
+    </nz-select>
+    <button nz-button (click)="filterUnshippedOrders();" nzType="primary">
+      <i nz-icon nzType="filter"></i>
+      Filter
+    </button>
+    &nbsp;
+    <nz-badge [nzCount]="pendingLabel">
+      <button nz-button  nzType="primary">
+        <i nz-icon nzType="barcode"></i>
+        Pending Labels
+      </button>
+    </nz-badge>
+
+  </div>
+</div>
+
+
+
+
+
+
+<br><br>
 <nz-table
       nzShowSizeChanger
       [nzData]="unshippedOrders"
@@ -8,20 +63,22 @@
     >
       <thead>
         <tr>
-          <th nzColumnKey="OrderDate" [nzSortFn]="true">OrderDate</th>
-          <th nzColumnKey="OrderStatus" [nzFilterFn]="true">OrderStatus</th>
-          <th nzColumnKey="BillingName" [nzSortFn]="true">BillingName</th>
-          <th nzColumnKey="StoreName" [nzSortFn]="true">StoreName</th>
-
+          <th nzColumnKey="storeName" [nzSortFn]="true">Store</th>
+          <th >MailService</th>
+          <th nzColumnKey="orderId" [nzFilterFn]="true">Order Id</th>
+          <th nzColumnKey="orderDate" [nzSortFn]="true">Order Date</th>
+          <th nzColumnKey="shipTo" [nzSortFn]="true">Ship To</th>
+          
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of unshippedOrders[0]">
-          <td>{{ data.OrderDate }}</td>
-          <td>{{ data.OrderStatus }}</td>
-          <td>{{ data.BillingName }}</td>
-          <td>{{ data.StoreName }}</td>
-       
+        <tr *ngFor="let data of unshippedOrders">
+          <td>{{ data.storeName }}</td>
+          <td>{{ data.mailServiceName }}</td>
+          <td>{{ data.orderId }}</td>
+          <td>{{ data.orderDate }}</td>
+          <td *ngIf="data.shipTo" [innerHTML]="data.shipTo" ></td>
+          
         </tr>
       </tbody>
     </nz-table>

@@ -37,13 +37,9 @@ export class AppComponent implements OnInit {
     
   ngOnInit(): void{
     //console.log('working location:',this.planform.pathname.substring(1));
-
-    this.isLoggedIn = !!this.tokenStorageService.getToken();
+     this.isLoggedIn = !!this.tokenStorageService.getToken();
     if (this.isLoggedIn) {
       const user = this.tokenStorageService.getUser();
-/*       this.roles = user.roles;
-      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR'); */
       this.username = user.username;
      
     }else{
@@ -53,7 +49,7 @@ export class AppComponent implements OnInit {
       }
     }
 
-     this.route.events.subscribe((data)=>{
+    this.route.events.subscribe((data)=>{
 
        if(data instanceof NavigationEnd){
          this.routerPath=data.url.substring(1);
@@ -61,7 +57,7 @@ export class AppComponent implements OnInit {
          //console.log("working path:",this.routerPath);
          this.currentPath = this.routerPath;
        }
-    }) 
+    })  
 
    
 

@@ -25,7 +25,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
 
 //import { User } from './_models';
 
-/* NG ZORRO */
+/* NG ZORRO: https://ng.ant.design/components/select/zh */
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -44,6 +44,8 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NzTagModule } from 'ng-zorro-antd/tag';
+import { NzStepsModule } from 'ng-zorro-antd/steps';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 
 import { LoginComponent } from './login/login.component';
 import { ProductsComponent } from './products/products.component';
@@ -100,7 +102,9 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     NzModalModule,
     NzDescriptionsModule,
     NzBadgeModule,
-    NzTagModule
+    NzTagModule,
+    NzStepsModule,
+    NzSelectModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

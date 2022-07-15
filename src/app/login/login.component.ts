@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder,FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { RdsService } from '../rds.service';
+
 import { HttpClient } from '@angular/common/http';
-
-
-
-import { first } from 'rxjs/operators';
 
 import { TokenStorageService } from '@app/_services/token-storage.service';
 import { AuthService  } from '@app/_services/auth.service';
@@ -37,7 +33,6 @@ export class LoginComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private fb: FormBuilder,
-    private rdsService: RdsService,
     private route: ActivatedRoute,
         private router: Router,
         private authService: AuthService, private tokenStorage: TokenStorageService

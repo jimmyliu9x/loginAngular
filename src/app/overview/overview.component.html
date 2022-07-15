@@ -27,49 +27,48 @@
     <br>
 
     <nz-row [nzGutter]="16">
-      <nz-col [nzSpan]="16" nzLg="16" nzXs="24">
+      <nz-col [nzSpan]="24" nzLg="24" nzXs="24">
 
 
-        <nz-card [nzBodyStyle]="{'padding':'0px'}">
+        <nz-card [nzBodyStyle]="{'padding':'0px'}" >
           <nz-row [nzGutter]="0" style="padding:20px;">
-            <nz-col [nzSpan]="24" nzLg="24" nzXs="24" >
+            <nz-col [nzSpan]="12" nzLg="12" nzXs="24" >
               <h3><i nz-icon nzType="amazon" nzTheme="outline"></i> Amazon Sales</h3>
             </nz-col>
-           
+            <nz-col [nzSpan]="12" nzLg="12" nzXs="24"  style="text-align:right;">
+              <button routerLink="/products" nz-button nzType="default" nzShape="circle"><i nz-icon nzType="right" nzTheme="outline"></i></button>
+            </nz-col>
           </nz-row>
     
     
           <nz-row [nzGutter]="0">
-              <nz-col [nzSpan]="8" nzLg="8" nzXs="24" style="border-right:1px solid #eee ;padding-left: 30px;">
-                <nz-statistic  [nzValue]="(salesData[0] | number)!" [nzTitle]="'Revenue'"> </nz-statistic>
+              <nz-col [nzSpan]="5" nzLg="5" nzXs="24" style="border-right:1px solid #eee ;padding-left: 30px;">
+                <span>Revenue</span>
+                <h1 class="animate__animated animate__fadeInDown" style="color:rgb(0, 194, 146);">${{salesData[0] | number: '1.0-2'}}</h1>
               </nz-col>
-              <nz-col [nzSpan]="8" nzLg="8" nzXs="24" style="border-right:1px solid #eee ;padding-left: 30px;">
-            
-                <nz-statistic [nzValue]="(salesData[1] | number)!" [nzTitle]="'Cost'"></nz-statistic>
+              <nz-col [nzSpan]="5" nzLg="5" nzXs="24" nzXs="24" style="border-right:1px solid #eee ;padding-left: 30px;">
+                <span>Cost</span>
+                <h1 class="animate__animated animate__fadeInDown" style="color:rgb(251,150,120);">${{salesData[1] | number: '1.0-2' }}</h1>
               </nz-col>
-              <nz-col [nzSpan]="8" nzLg="8" nzXs="24" style="padding-left: 30px;">
-             
-                <nz-statistic [nzValue]="(salesData[3] | number: '1.0-2')!" [nzTitle]="'Profit'"></nz-statistic>
-    
+              <nz-col [nzSpan]="5" nzLg="5" nzXs="24" style="border-right:1px solid #eee ;padding-left: 30px;">
+                <span >Profit</span>
+                <h1 class="animate__animated animate__fadeInDown" style="color:rgb(3,201,215);">${{salesData[2] | number: '1.0-2'}}</h1>
+              </nz-col>
+              <nz-col [nzSpan]="5" nzLg="5" nzXs="24" style="border-right:1px solid #eee ;padding-left: 30px;">
+                <span >Sales Orders</span>
+                <h1 class="animate__animated animate__fadeInDown">{{salesData[3] | number}}</h1>
+              </nz-col>
+              <nz-col [nzSpan]="4" nzLg="4" nzXs="24" style="padding-left: 30px;">
+                <span>Return Orders</span>
+                <h1 class="animate__animated animate__fadeInDown">{{salesData[4] | number}}</h1>
               </nz-col>
           </nz-row>
           <br>
-            <div echarts [options]="chartLineOption" (chartInit)="onChartLineInit($event)"></div>
+            <div style="height: 260px;" echarts [options]="chartLineOption" (chartInit)="onChartLineInit($event)"></div>
           
         </nz-card>
 
         
-
-      </nz-col>
-
-      <nz-col [nzSpan]="8" nzLg="8" nzXs="24">
-        <nz-card style="margin-bottom:10px;height: 190px;">
-          <nz-statistic [nzValue]="(salesData[3] | number: '1.0-2')!" [nzTitle]="'Sales Orders'"></nz-statistic>
-        </nz-card>
-
-        <nz-card style="margin-top:10px;height: 190px;">
-          <nz-statistic [nzValue]="(salesData[3] | number: '1.0-2')!" [nzTitle]="'Sales Orders'"></nz-statistic>
-        </nz-card>
 
       </nz-col>
 

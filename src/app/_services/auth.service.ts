@@ -1,25 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-const AUTH_API = 'https://flsoftdemo-apiv2.azurewebsites.net/user/login';
+import { Global} from '../global';
+
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  //headers: new HttpHeaders({ 'Access-Control-Allow-Orgin':'*' })
 };
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
   constructor(private http: HttpClient) { }
   // login, register
   login(username: string, password: string): Observable<any> {
-    return this.http.post(AUTH_API, {
+    return this.http.post(Global.API_URL + '/user/login', {
       username,
       password
     }, httpOptions);
   }
   register(username: string, email: string, password: string): Observable<any> {
-    return this.http.post(AUTH_API + 'signup', {
+    return this.http.post(Global.API_URL + '/user/signup', {
       username,
       email,
       password
@@ -27,7 +28,7 @@ export class AuthService {
   }
 
   refreshToken(token: string) {
-    return this.http.post(AUTH_API + 'refreshtoken', {
+    return this.http.post(Global.API_URL + 'refreshtoken', {
       refreshToken: token
     }, httpOptions);
   }
