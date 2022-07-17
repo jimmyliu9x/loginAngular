@@ -12,9 +12,13 @@
   </div>
   <div nz-col nzSpan="20" style="text-align: right;">
   
-    <nz-input-group [nzSuffix]="inputClearTpl" style="width: 150px;">
+    <nz-input-group [nzSuffix]="inputClearTpl" nzSearch [nzAddOnAfter]="suffixIconButton" style="width: 180px;">
       <input type="text" nz-input [(ngModel)]="orderId" placeholder="Search by order id" />
     </nz-input-group>
+    <ng-template #suffixIconButton>
+      <button nz-button (click)="filterUnshippedOrders();" nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
+    </ng-template>
+
     <ng-template #inputClearTpl>
       <i
         nz-icon
@@ -22,12 +26,12 @@
         nzTheme="fill"
         nzType="close-circle"
         *ngIf="orderId"
-        (click)="orderId = null"
+        (click)="orderId = null;filterUnshippedOrders();"
       ></i>
     </ng-template>
+   
 
-
-    <nz-select [(ngModel)]="mailService" nzPlaceHolder="Select a Mail Service">
+    <!-- <nz-select [(ngModel)]="mailService" nzPlaceHolder="Select a Mail Service">
       <nz-option *ngFor="let option of ddlMailServices" [nzLabel]="option['mailService']" [nzValue]="option['mailService']"></nz-option>
     </nz-select>
 
@@ -37,7 +41,20 @@
     <button nz-button (click)="filterUnshippedOrders();" nzType="primary">
       <i nz-icon nzType="filter"></i>
       Filter
+    </button> -->
+
+    
+
+    
+<!-- 
+    <button nz-button nzType="primary">
+      <i nz-icon nzType="download"></i>
+      Download Orders
     </button>
+
+    <button nz-button nzType="primary">
+      Check Rates
+    </button> -->
     &nbsp;
     <nz-badge [nzCount]="pendingLabel">
       <button nz-button  nzType="primary">
@@ -50,24 +67,21 @@
 </div>
 
 
-
-
-
-
 <br><br>
 <nz-table
       nzShowSizeChanger
       [nzData]="unshippedOrders"
       [nzFrontPagination]="true"
       [nzLoading]="loading"
+      (nzQueryParams)="onQueryParamsChange($event)"
     >
       <thead>
         <tr>
-          <th nzColumnKey="storeName" [nzSortFn]="true">Store</th>
-          <th >MailService</th>
-          <th nzColumnKey="orderId" [nzFilterFn]="true">Order Id</th>
-          <th nzColumnKey="orderDate" [nzSortFn]="true">Order Date</th>
-          <th nzColumnKey="shipTo" [nzSortFn]="true">Ship To</th>
+          <th nzColumnKey="storeId" [nzFilters]="filterStore" [nzFilterMultiple]="false" [nzFilterFn]="true">Store</th>
+          <th nzColumnKey="mailService" [nzFilters]="filterMailServices" [nzFilterMultiple]="false" [nzFilterFn]="true" >MailService</th>
+          <th nzColumnKey="orderId" >Order Id</th>
+          <th nzColumnKey="orderDate">Order Date</th>
+          <th nzColumnKey="shipTo" >Ship To</th>
           
         </tr>
       </thead>

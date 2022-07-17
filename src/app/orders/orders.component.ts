@@ -4,6 +4,7 @@ import { OrderService  } from '@app/_services/order.service';
 import { number } from 'echarts';
 import { JSDocTagName } from '@angular/compiler/src/output/output_ast';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
 @Component({
   selector: 'app-orders',
@@ -12,70 +13,77 @@ import { NzBadgeModule } from 'ng-zorro-antd/badge';
 })
 export class OrdersComponent implements OnInit {
 
-  loading = false;
+  loading = false; //loading indicator animation
   
   constructor(
     private orderService: OrderService
   ) { }
     
   unshippedOrders: any = [];
-  ddlMailServices: any = [];
-  ddlStore: any = [];
-  
+  filterMailServices: any = [];
+  filterStore: any = [];
+
   mailService: string;
   storeId: number;
   orderId: number;
   pendingLabel:number;
   labelFile: any = [];
   
-  public filters: Array<any>  = [
-    { mailService: String , storeId: String }
-  ];
-   
 
   ngOnInit(): void {
     
-
-  /*     edit by caonan at 2022-07-07 
-    
-    this.rdsService.url = 'https://flsoftdemo-apiv3.azurewebsites.net/unshippedOrders';
-    this.rdsService.post('20','1').subscribe(data => {
-      console.log(data['order_GetUnShipped']);
-      this.unshippedOrders = data['order_GetUnShipped'];
-    });
-
-    this.rdsService.url = 'https://flsoftdemo-apiv3.azurewebsites.net/labelreport';
-    this.rdsService.post('20','1').subscribe(data => {
-      this.labelFile = data['singleItem'];
-      this.loading = false;
-    }); 
-    */
-    // dropdown list
+    // get dropdown list for filters
     this.orderService.getDropdownMenu().subscribe(
       data => { 
-        this.ddlMailServices = data['ddlMailServices'];
-        this.ddlStore = data['ddlStore'];
-        console.log(data);
+        this.filterMailServices = data['ddlMailServices'];
+        this.filterStore = data['ddlStore'];
+       
+        /* Rename key name for filters */
+        this.filterStore.forEach((obj) => {
+            for (const k in obj) {
+                if (k === "storeName") {
+                    obj["text"] = obj[k];
+                    delete obj[k]
+                }
+                if (k === "id") {
+                  obj["value"] = obj[k];
+                  delete obj[k]
+              }
+            }
+        })
+        
+        this.filterMailServices.forEach((obj) => {
+            for (const j in obj) {
+                obj["text"] = obj[j];
+                obj["value"] = obj[j];
+                delete obj[j];
+            }
+        })
+
       },
       error => {
         
       }
     );
-    
-    // unshippedOrders list
-    /* this.orderService.getUnShippedOrders(this.filters).subscribe(
-      data => { 
-        this.loading = false;
-        this.unshippedOrders = data['unShipped'];
-        console.log(this.unshippedOrders);
-      },
-      error => {
-        
-      }
-    ); */
 
     
     this.filterUnshippedOrders();
+  }
+
+  /* action when filter changed in table header */
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    console.log(params);
+
+    params.filter.forEach((obj) => {
+       if(obj['key']==="mailService"){
+         this.mailService = obj['value'];
+       }
+       if(obj['key']==="storeId"){
+        this.storeId = obj['value'];
+      }
+    })
+    this.filterUnshippedOrders();
+
   }
 
   filterUnshippedOrders(){
@@ -83,18 +91,16 @@ export class OrdersComponent implements OnInit {
 
     let jsonObject = {};  
 
-    
+    jsonObject['top'] = '50';
     if(this.storeId && this.storeId !== 0){jsonObject['storeId'] = this.storeId;}
     if(this.mailService && this.mailService !== 'ALL'){jsonObject['mailService'] = this.mailService;}
     if(this.orderId){jsonObject['orderId'] = this.orderId;}
-    
 
     this.orderService.getUnShippedOrders(JSON.stringify(jsonObject)).subscribe(
       data => { 
         this.loading = false;
         this.unshippedOrders = data['unShipped'];
         this.pendingLabel = data['numberOfPendingLabel'];
-        console.log(this.unshippedOrders);
       },
       error => {
         
